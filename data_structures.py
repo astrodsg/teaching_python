@@ -257,5 +257,64 @@ for column in h:
 # Input output (IO)
 
 h.to_csv('untracked_example.csv')
-i = pd.read_csv('untracked_example.csv')
+h_other = pd.read_csv('untracked_example.csv')
+
+iris = pd.read_csv('data/iris.csv')
+
+
+# Group by operations
+
+"""
+SELECT COUNT(*) 
+FROM iris
+GROUP BY species
+"""
+iris.groupby('species').size()
+
+
+"""
+SELECT
+    COUNT(*) AS number
+    , AVG(pedal_length) AS avg_pedal_length
+    , AVG(pedal_width) AS avg_pedal_width
+    , AVG(pedal_length - pedal_width) AS avg_pedal_length_to_width
+FROM iris
+GROUP BY species
+WHERE
+    petal_length > 1.2
+"""
+gb = iris.query('petal_length > 1.2').groupby('species')
+df = pd.DataFrame()
+df['number'] = gb.size()
+df['avg_pedal_length'] = gb['pedal_length'].mean()
+df['avg_pedal_width'] = gb['pedal_width'].mean()
+
+
+def difference_length_and_width(group):
+    average_diff = (group['pedal_length'] - group['pedal_width']).mean()
+    return average_diff
+df['avg_pedal_length_to_width'] = gb.apply(difference_length_and_width)
+
+
+# joins (aka merge)
+
+rows = [
+    ('setosa', 'Arctic Sea'),
+    ('setosa', 'Russia'),
+    ('setosa', 'North Eastern Asia'),
+    ('setosa', 'Japan'),
+    ('virginica', 'Eastern North America'),
+    ('versicolor', 'Eastern North America'),
+    ('versicolor', 'Eastern Canada'),
+]
+region_info = pd.DataFrame(rows, columns=['species', 'region'])
+
+
+"""
+SELECT *
+FROM 
+    iris i
+    JOIN region_info ri ON i.species = ri.species
+"""
+iris.merge(region_info, on='species', how='inner')
 
