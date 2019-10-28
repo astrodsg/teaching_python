@@ -206,7 +206,7 @@ np.linalg
 import pandas as pd 
 
 dataframe_variable = pd.DataFrame({
-    'column1': [1, 2, 3],
+    'column1': [1.1, 2.1, 3.1],
     'column2': ['a', 'b', 'c'],
 })
 
@@ -225,7 +225,7 @@ h.set_index('column1', inplace=True)
 # accessing
 
 h['col3']
-h['col3'][0]
+h['col3'][2.1]
 h['col3'][:2]
 
 h[['column2', 'col3']]
@@ -286,14 +286,14 @@ WHERE
 gb = iris.query('petal_length > 1.2').groupby('species')
 df = pd.DataFrame()
 df['number'] = gb.size()
-df['avg_pedal_length'] = gb['pedal_length'].mean()
-df['avg_pedal_width'] = gb['pedal_width'].mean()
+df['avg_petal_length'] = gb['petal_length'].mean()
+df['avg_petal_width'] = gb['petal_width'].mean()
 
 
 def difference_length_and_width(group):
-    average_diff = (group['pedal_length'] - group['pedal_width']).mean()
+    average_diff = (group['petal_length'] - group['petal_width']).mean()
     return average_diff
-df['avg_pedal_length_to_width'] = gb.apply(difference_length_and_width)
+df['avg_petal_length_to_width'] = gb.apply(difference_length_and_width)
 
 
 # joins (aka merge)
