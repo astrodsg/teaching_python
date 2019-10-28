@@ -1,0 +1,9 @@
+# install numpy, the python array object
+numpy
+
+# install pandas, for the python dataframe object
+pandas
+
+# install excel read/write tools
+xlrd
+xlwt
