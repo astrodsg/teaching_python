@@ -1,0 +1,5 @@
+# ignore all files starting with `untracked_`
+untracked_*
+
+# python
+__pycache__
