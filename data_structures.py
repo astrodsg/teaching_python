@@ -34,10 +34,9 @@ a[1:-1]
 
 # mutation
 
-a[0] = "change variable"
+a[0] = "change_variable"
 
 # looping
-
 for variable in a:
     print(variable)
 
@@ -49,7 +48,7 @@ a.pop(0)
 
 # ###### Tuple ####### #
 # 
-# A tuple is a non-mutable ordered collection of variables
+# A tuple is a immutable ordered collection of variables
 #
 
 tuple_variable = (1, 2, 3)
@@ -76,6 +75,7 @@ for variable in b:
 dict_variable = {
     'key1': 'variable',
     'key2': 1.23,
+    'value_is_list': [1, 2.34],
     5: 'five',
 }
 
@@ -85,12 +85,19 @@ c = dict_variable
 
 c['key1']
 c[5]
+c['value_is_list']
 
 # mutations
 
 c['key2'] = 'changed variable'
+c['new_key'] = 'added_a_key_value_pair'
 
 # looping
+
+for i in range(2, 10):
+    print(i)
+    # add the key `i` with value 'hello'
+    c[i] = 'hello'
 
 for key in c:
     print(key, ' is set to ', c[key])
@@ -109,7 +116,7 @@ c.get('not_a_key', 'default')
 # A set is a mutable, unordered unique collection of objects
 #
 
-set_variable = {1, 3, 'hello'}
+set_variable = {1, 1, 3, 3, 'hello'}
 
 d = {2, 4, 6}
 e = {1, 2, 3}
@@ -120,9 +127,12 @@ d.add(7)
 d.remove(7)
 
 # set operations
-d.union(e) # = {1, 2, 3, 4, 6} union or full outer join
-d.intersection(e) # = {2} intersection or inner join
-d.difference(e) # = {4, 6} difference between d and e
+# 
+# http://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1526998740/15_union_intersection_difference_symmetric.png
+#
+d.union(e)                # = {1, 2, 3, 4, 6} union or full outer join
+d.intersection(e)         # = {2} intersection or inner join
+d.difference(e)           # = {4, 6} difference between d and e
 d.symmetric_difference(e) # = {1, 3, 4, 6} union minus the intersection
 
 
